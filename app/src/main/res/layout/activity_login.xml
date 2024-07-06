@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A2C5A6"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="64dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/appNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="LIGHTCONTROL"
+        android:textColor="#2F5D50"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logoImageView" />
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/contenedor_fondo"
+        android:padding="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appNameTextView">
+
+        <EditText
+            android:id="@+id/editTextCorreoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_fondo"
+            android:hint="Username"
+            android:padding="12dp"
+            android:textColor="#2F5D50"
+            android:textColorHint="#7C8B7C" />
+
+        <EditText
+            android:id="@+id/editTextContraseñaLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextCorreoLogin"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_fondo"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="#2F5D50"
+            android:textColorHint="#7C8B7C" />
+
+        <ImageButton
+            android:id="@+id/contrasenaVisibilidadLogin"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignEnd="@id/editTextContraseñaLogin"
+            android:layout_alignBottom="@id/editTextContraseñaLogin"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="13dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Toggle password visibility"
+            android:padding="4dp"
+            android:src="@drawable/visibilidad_contrasena" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextContraseñaLogin"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_background"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewOlvidasteContrasenaLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="¿Olvidaste tu contraseña?"
+        android:textColor="#2F5D50"
+        android:textSize="14sp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <View
+        android:id="@+id/separatorView"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#2F5D50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOlvidasteContrasenaLogin" />
+
+    <TextView
+        android:id="@+id/separatorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="O si quieres"
+        android:textColor="#2F5D50"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/separatorView1"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="@id/separatorView"
+        app:layout_constraintTop_toBottomOf="@id/textViewOlvidasteContrasenaLogin" />
+
+    <View
+        android:id="@+id/separatorView1"
+        android:layout_width="120dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#2F5D50"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOlvidasteContrasenaLogin" />
+
+    <Button
+        android:id="@+id/buttonRegistrarseLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_background"
+        android:text="Registrarse"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separatorView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
