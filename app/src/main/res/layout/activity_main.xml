@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,19 +10,19 @@
         android:id="@+id/imageBombilloAnimation1"
         android:layout_width="275dp"
         android:layout_height="269dp"
-        android:layout_marginBottom="-315dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:translationY="1000dp"
         app:srcCompat="@drawable/icon_bombillo" />
 
     <ImageView
         android:id="@+id/imageBombilloAnimation2"
         android:layout_width="275dp"
         android:layout_height="269dp"
-        android:layout_marginBottom="-315dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:translationY="1000dp"
         app:srcCompat="@drawable/icon_bombillo2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

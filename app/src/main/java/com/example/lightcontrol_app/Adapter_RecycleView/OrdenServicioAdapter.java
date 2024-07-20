@@ -1,12 +1,15 @@
 package com.example.lightcontrol_app.Adapter_RecycleView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.lightcontrol_app.Modelo_RecycleView.OrdenServicio;
+import com.example.lightcontrol_app.menuPrincipal.verOrdenesServicio.DetallesOrdenes;
+import com.example.lightcontrol_app.Modelo_RecycleView.OrdenServicioVistaPrevia;
 import com.example.lightcontrol_app.R;
 
 import androidx.annotation.NonNull;
@@ -15,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class OrdenServicioAdapter extends RecyclerView.Adapter<OrdenServicioAdapter.OrderViewHolder>{
-    private List<OrdenServicio> orderList;
+    private List<OrdenServicioVistaPrevia> orderList;
 
-    public OrdenServicioAdapter(List<OrdenServicio> orderList) {
+    public OrdenServicioAdapter(List<OrdenServicioVistaPrevia> orderList) {
         this.orderList = orderList;
     }
 
@@ -30,11 +33,16 @@ public class OrdenServicioAdapter extends RecyclerView.Adapter<OrdenServicioAdap
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        OrdenServicio order = orderList.get(position);
-        holder.tvOrderId.setText("Orden #" + order.getId());
-        holder.tvOrderDescription.setText(order.getDescription());
-        holder.btnViewMore.setOnClickListener(v -> {
-            // Implementar acción para ver más detalles
+        OrdenServicioVistaPrevia order = orderList.get(position);
+        holder.ordenId.setText("Orden #" + order.getId());
+        holder.orderDescripcion.setText(order.getDescription());
+        holder.btnVerMas.setOnClickListener(v -> {
+
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetallesOrdenes.class);
+            intent.putExtra("orderId", order.getId());
+            // Añade más datos
+            context.startActivity(intent);
         });
     }
 
@@ -44,14 +52,15 @@ public class OrdenServicioAdapter extends RecyclerView.Adapter<OrdenServicioAdap
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOrderId, tvOrderDescription;
-        Button btnViewMore;
+        TextView ordenId, orderDescripcion;
+        Button btnVerMas;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvOrderId = itemView.findViewById(R.id.tvOrderId);
-            tvOrderDescription = itemView.findViewById(R.id.tvOrderDescription);
-            btnViewMore = itemView.findViewById(R.id.btnViewMore);
+            ordenId = itemView.findViewById(R.id.tvOrderId);
+            orderDescripcion = itemView.findViewById(R.id.tvOrderDescription);
+            btnVerMas = itemView.findViewById(R.id.btnViewMore);
+
         }
     }
 }

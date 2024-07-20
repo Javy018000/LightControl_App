@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="Ver más"
         android:textSize="14sp"
-        android:backgroundTint="#6A1B9A"
+        android:background="@drawable/button_background"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

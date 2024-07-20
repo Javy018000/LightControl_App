@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".menuPrincipal.crearOrdenServicio.CrearOrdenActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCrearOrden"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <!-- Tab Layout -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutCrearOrden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_dark"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@android:color/white">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_mantenimiento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mantenimiento" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_expansion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expansión" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_modernizacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Modernización" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <!-- ViewPager for Tabs -->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPagerCrearOrden"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

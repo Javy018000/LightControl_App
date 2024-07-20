@@ -1,0 +1,214 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Detalles PQR -->
+        <TextView
+            android:id="@+id/tvDetallesPQR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green_dark"
+            android:padding="16dp"
+            android:text="Detalles PQR"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:gravity="center" />
+
+        <!-- Datos Generales -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos Generales"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:drawableLeft="@android:drawable/ic_dialog_info"
+                android:drawablePadding="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextConsecutivoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Consecutivo"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextTipoPqrsInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipo de PQRS" />
+
+            <EditText
+                android:id="@+id/editTextTFechaRegistroInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha de Registro"
+                android:inputType="datetime" />
+
+            <EditText
+                android:id="@+id/editTextTCanalInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Canal" />
+        </LinearLayout>
+
+        <!-- Datos de Usuario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos de Usuario"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:drawableLeft="@android:drawable/ic_dialog_info"
+                android:drawablePadding="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextTNombreInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre" />
+
+            <EditText
+                android:id="@+id/editTextDocumentoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Documento"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editTextApellidoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido" />
+
+            <EditText
+                android:id="@+id/editTextTelefonoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/editTextTipoDocumentoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipo de Documento" />
+
+            <EditText
+                android:id="@+id/editTextCorreoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:inputType="textEmailAddress" />
+        </LinearLayout>
+
+        <!-- Datos de Afectación -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/white"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Datos de Afectación"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:drawableLeft="@android:drawable/ic_dialog_info"
+                android:drawablePadding="8dp"/>
+
+            <EditText
+                android:id="@+id/editTextDireccionAfectacionInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dirección Afectación" />
+
+            <EditText
+                android:id="@+id/editTextDescripcionAfectacionInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción Afectación" />
+
+            <EditText
+                android:id="@+id/editTextBarrioAfectacionInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Barrio Afectación" />
+
+            <EditText
+                android:id="@+id/editTextEstadoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Estado" />
+
+            <EditText
+                android:id="@+id/editTextTipoAlumbradoInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tipo de Alumbrado" />
+
+            <ImageView
+                android:id="@+id/imageViewInfoPqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:srcCompat="@tools:sample/avatars" />
+
+
+        </LinearLayout>
+
+        <!-- Botones -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/buttonCrearOrden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:text="Crear Orden"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/buttonCrearOrdenVolver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:text="Atrás"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">LightControl_App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="options_array">
+        <item>Mantenimiento preventivo (limpieza)</item>
+        <item>Cambio de luminaria por luminaria provisional</item>
+        <item>Ajuste de fotocelda</item>
+        <item>Ajuste de conectores</item>
+        <item>Ajuste de acometida luminaria</item>
+        <item>Ajuste Red de alimentación</item>
+        <item>Cambio de fotocelda</item>
+        <item>Cambio de conectores</item>
+        <item>Cambio de acometida luminaria</item>
+        <item>Cambio de red exclusiva</item>
+        <item>Poda en infraestructura de alumbrado público</item>
+        <item>Reubicación de luminaria</item>
+        <item>Plomado de poste</item>
+    </string-array>
 </resources>

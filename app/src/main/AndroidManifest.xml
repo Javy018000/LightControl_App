@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,13 +25,25 @@
         android:theme="@style/Theme.LightControl_App"
         tools:targetApi="31">
         <activity
-            android:name=".DetallesOrdenes"
+            android:name=".menuPrincipal.crearOrdenServicio.CrearOrdenActivity"
             android:exported="false" />
         <activity
-            android:name=".VerOrdenServicio"
+            android:name=".menuPrincipal.crearOrdenServicio.InfoPqrActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuPrincipal"
+            android:name=".menuPrincipal.crearOrdenServicio.VerPqrsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".menuPrincipal.verOrdenesServicio.MapaPuntosSimultaneos"
+            android:exported="false" />
+        <activity
+            android:name=".menuPrincipal.verOrdenesServicio.DetallesOrdenes"
+            android:exported="false" />
+        <activity
+            android:name=".menuPrincipal.verOrdenesServicio.VerOrdenServicio"
+            android:exported="false" />
+        <activity
+            android:name=".menuPrincipal.MenuPrincipal"
             android:exported="false" />
         <activity
             android:name=".Login"
