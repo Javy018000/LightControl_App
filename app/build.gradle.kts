@@ -45,8 +45,10 @@ dependencies {
     implementation ("net.sourceforge.jtds:jtds:1.3.1")
 
     //mapa
-    implementation ("org.osmdroid:osmdroid-android:6.1.13")
-
+    implementation ("org.osmdroid:osmdroid-android:6.1.18")
+    implementation ("org.osmdroid:osmdroid-mapsforge:6.1.18")
+    implementation ("com.github.MKergall:osmbonuspack:6.9.0")
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
 
 
 }

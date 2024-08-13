@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,25 +18,38 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarMapa" />
 
-    <LinearLayout
+    <View
+        android:id="@+id/buttonBrujula"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:onClick="onButtonBrujulaClick" />
+
+    <!-- Botón flotante y etiqueta -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabVerEnMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        android:contentDescription="Ver en Maps"
+        android:src="@drawable/icon_maps" />
 
-        <Button
-            android:id="@+id/btnZoomIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+" />
-
-        <Button
-            android:id="@+id/btnZoomOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="-" />
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/labelVerEnMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fabVerEnMaps"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Ver en Maps"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
 </RelativeLayout>

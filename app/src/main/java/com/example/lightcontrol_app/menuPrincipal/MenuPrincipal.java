@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.lightcontrol_app.Modelo_RecycleView.VerInventario;
 import com.example.lightcontrol_app.R;
 import com.example.lightcontrol_app.menuPrincipal.crearOrdenServicio.VerPqrsActivity;
+import com.example.lightcontrol_app.menuPrincipal.verInventario.VerInventarioActivity;
 import com.example.lightcontrol_app.menuPrincipal.verOrdenesServicio.VerOrdenServicio;
 
 public class MenuPrincipal extends AppCompatActivity {
@@ -57,6 +59,8 @@ public class MenuPrincipal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Acción al hacer clic en Ver insumos en inventario
+                Intent intent = new Intent(getApplicationContext(), VerInventarioActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,14 +1,22 @@
 package com.example.lightcontrol_app.Adapter_RecycleView;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,21 +40,31 @@ public class InsumosCerrarOrdenAdapter extends RecyclerView.Adapter<InsumosCerra
         return insumosModificados;
     }
 
+    public void setInsumosModificados(List<Insumos> insumosModificados) {
+        this.insumosModificados = insumosModificados;
+    }
+
     @NonNull
     @Override
     public InsumosCerrarOrdenAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_insumos_cerrar_orden, parent, false);
         return new InsumosCerrarOrdenAdapter.OrderViewHolder(view);
     }
-
     @Override
-    public void onBindViewHolder(@NonNull InsumosCerrarOrdenAdapter.OrderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Insumos insumos = insumosLista.get(position);
-        System.out.println("Insumos " + insumos.getId());
+
+        // Remover el TextWatcher existente si hay uno
+        if (holder.textWatcher != null) {
+            holder.campCantidad.removeTextChangedListener(holder.textWatcher);
+        }
+
+        // Actualizar el texto sin activar el TextWatcher
+        holder.campCantidad.setText(String.valueOf(insumos.getCantidadUtilizada()));
         holder.itemId.setText(String.valueOf(insumos.getId()));
         holder.itemNombre.setText(insumos.getNombreElemento());
         holder.itemDescripcion.setText(insumos.getDescripcion());
-        holder.campCantidad.setText(String.valueOf(insumos.getCantidad()));
+
         if(insumos.getEstado().equals("Disponible")) {
             GradientDrawable drawable = (GradientDrawable) holder.circulito.getBackground();
             drawable.setColor(holder.itemView.getResources().getColor(android.R.color.holo_green_light));
@@ -55,36 +73,72 @@ public class InsumosCerrarOrdenAdapter extends RecyclerView.Adapter<InsumosCerra
             holder.btnMenos.setEnabled(false);
             holder.campCantidad.setEnabled(false);
         }
-        holder.btnMas.setOnClickListener(new View.OnClickListener() {
+
+        holder.btnMas.setOnClickListener(v -> actualizarCantidad(holder, insumos, 1));
+        holder.btnMenos.setOnClickListener(v -> actualizarCantidad(holder, insumos, -1));
+
+        // Crear y agregar un nuevo TextWatcher
+        holder.textWatcher = new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                int cant = insumos.getCantidad();
-                if (cant > 0) {
-                    holder.btnMenos.setEnabled(true);
-                    insumos.setCantidad(++cant);
-                    holder.campCantidad.setText(String.valueOf(cant));
-                    addModifiedInsumo(insumos);
-                }
-            }
-        });
-        holder.btnMenos.setOnClickListener(new View.OnClickListener() {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
-            public void onClick(View v) {
-                int cant = insumos.getCantidad();
-                if (cant > 0) {
-                    insumos.setCantidad(--cant);
-                    holder.campCantidad.setText(String.valueOf(cant));
-                    addModifiedInsumo(insumos);
-                } else {
-                    holder.btnMenos.setEnabled(false);
-                }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                actualizarCantidadManual(holder, insumos);
             }
-        });
+        };
+        holder.campCantidad.addTextChangedListener(holder.textWatcher);
+    }
+    private void actualizarCantidad(OrderViewHolder holder, Insumos insumos, int delta) {
+        int nuevaCantidad = insumos.getCantidadUtilizada() + delta;
+        if (nuevaCantidad >= 0 && nuevaCantidad <= insumos.getCantidad()) {
+            insumos.setCantidadUtilizada(nuevaCantidad);
+
+            // Remover y volver a agregar el TextWatcher al actualizar el texto
+            holder.campCantidad.removeTextChangedListener(holder.textWatcher);
+            holder.campCantidad.setText(String.valueOf(nuevaCantidad));
+            holder.campCantidad.addTextChangedListener(holder.textWatcher);
+
+            addModifiedInsumo(insumos, nuevaCantidad);
+        } else {
+            mostrarMensajeError(holder.itemView.getContext());
+        }
     }
 
-    private void addModifiedInsumo(Insumos insumo) {
-        if (!insumosModificados.contains(insumo)) {
-            insumosModificados.add(insumo);
+    private void actualizarCantidadManual(OrderViewHolder holder, Insumos insumos) {
+        try {
+            String texto = holder.campCantidad.getText().toString();
+            if (!texto.isEmpty()) {
+                int nuevaCantidad = Integer.parseInt(texto);
+                if (nuevaCantidad >= 0 && nuevaCantidad <= insumos.getCantidad()) {
+                    insumos.setCantidadUtilizada(nuevaCantidad);
+                    addModifiedInsumo(insumos, nuevaCantidad);
+                } else {
+                    mostrarMensajeError(holder.itemView.getContext());
+                }
+            } else {
+                insumos.setCantidadUtilizada(0);
+                addModifiedInsumo(insumos, 0);
+            }
+        } catch (NumberFormatException e) {
+            // Permitir que el usuario siga escribiendo
+        }
+    }
+
+    private void mostrarMensajeError(Context context) {
+        Toast.makeText(context, "Cantidad no válida", Toast.LENGTH_SHORT).show();
+    }
+
+    private void addModifiedInsumo(Insumos insumo, int cant) {
+        if (cant != 0) {
+            if (!insumosModificados.contains(insumo)) {
+                insumosModificados.add(insumo);
+            }
+        } else {
+            insumosModificados.remove(insumo);
         }
     }
 
@@ -102,6 +156,7 @@ public class InsumosCerrarOrdenAdapter extends RecyclerView.Adapter<InsumosCerra
         Button btnMenos;
         Button btnMas;
         EditText campCantidad;
+        TextWatcher textWatcher;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);

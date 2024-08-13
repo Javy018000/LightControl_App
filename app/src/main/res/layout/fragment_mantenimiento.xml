@@ -43,7 +43,8 @@
                     android:id="@+id/crearOrden_tipoElemento"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_tipo_de_elemento"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -153,7 +154,8 @@
                     android:id="@+id/crearOrden_problemaValido"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_problema_validado"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -263,7 +265,8 @@
                     android:id="@+id/crearOrden_ordenPrioridad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_orden_prioridad"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -299,7 +302,8 @@
                     android:id="@+id/crearOrden_tipoOrden"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_tipo_de_orden"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -336,7 +340,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="dd/mm/aaaa"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:clickable="true"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -372,7 +378,8 @@
                     android:id="@+id/crearOrden_tipoSolucion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_tipo_de_solucion"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -408,7 +415,8 @@
                     android:id="@+id/crearOrden_cuadrilla"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:entries="@array/mantenimiento_cuadrilla"/>
 
             </LinearLayout>
         </LinearLayout>

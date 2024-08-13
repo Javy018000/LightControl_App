@@ -1,5 +1,6 @@
 package com.example.lightcontrol_app.Adapter_RecycleView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -41,6 +42,7 @@ public class OrdenServicioAdapter extends RecyclerView.Adapter<OrdenServicioAdap
             Context context = v.getContext();
             Intent intent = new Intent(context, DetallesOrdenes.class);
             intent.putExtra("orderId", order.getId());
+            intent.putExtra("orderDescription", order.getDescription());
             // Añade más datos
             context.startActivity(intent);
         });
@@ -49,6 +51,13 @@ public class OrdenServicioAdapter extends RecyclerView.Adapter<OrdenServicioAdap
     @Override
     public int getItemCount() {
         return orderList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(List<OrdenServicioVistaPrevia> orders) {
+        this.orderList.clear();
+        this.orderList.addAll(orders);
+        notifyDataSetChanged();
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {

@@ -16,8 +16,6 @@ public class VerPqrs implements Parcelable {
     String apellido;
     String tipoDoc;
     String documento;
-    String barrioUsuario;
-    String direccionUsuario;
     String correo;
     String referencia;
     String direccionAfectacion;
@@ -29,7 +27,7 @@ public class VerPqrs implements Parcelable {
     String telefono;
     String fechaParcelable;
 
-    public VerPqrs(int idpqrs, Date fechaRegistro, String tipopqrs, String canal, String nombre, String apellido, String tipoDoc, String documento, String barrioUsuario, String direccionUsuario, String correo, String referencia, String direccionAfectacion, String barrioAfectacion, String tipoAlumbrado, String descripcionAfectacion, int estado, String telefono) {
+    public VerPqrs(int idpqrs, Date fechaRegistro, String tipopqrs, String canal, String nombre, String apellido, String tipoDoc, String documento, String correo, String referencia, String direccionAfectacion, String barrioAfectacion, String tipoAlumbrado, String descripcionAfectacion, int estado, String telefono) {
         this.idpqrs = idpqrs;
         this.fechaRegistro = fechaRegistro;
         this.tipopqrs = tipopqrs;
@@ -38,8 +36,6 @@ public class VerPqrs implements Parcelable {
         this.apellido = apellido;
         this.tipoDoc = tipoDoc;
         this.documento = documento;
-        this.barrioUsuario = barrioUsuario;
-        this.direccionUsuario = direccionUsuario;
         this.correo = correo;
         this.referencia = referencia;
         this.direccionAfectacion = direccionAfectacion;
@@ -51,12 +47,11 @@ public class VerPqrs implements Parcelable {
         this.fechaParcelable = fechaRegistro.toString();
     }
 
-    public VerPqrs(int idpqrs, Date fechaRegistro, String tipopqrs, String canal, String barrioUsuario, String descripcionAfectacion) {
+    public VerPqrs(int idpqrs, Date fechaRegistro, String tipopqrs, String canal, String descripcionAfectacion) {
         this.idpqrs = idpqrs;
         this.fechaRegistro = fechaRegistro;
         this.tipopqrs = tipopqrs;
         this.canal = canal;
-        this.barrioUsuario = barrioUsuario;
         this.descripcionAfectacion = descripcionAfectacion;
     }
 
@@ -68,8 +63,6 @@ public class VerPqrs implements Parcelable {
         apellido = in.readString();
         tipoDoc = in.readString();
         documento = in.readString();
-        barrioUsuario = in.readString();
-        direccionUsuario = in.readString();
         correo = in.readString();
         referencia = in.readString();
         direccionAfectacion = in.readString();
@@ -90,8 +83,6 @@ public class VerPqrs implements Parcelable {
         dest.writeString(apellido);
         dest.writeString(tipoDoc);
         dest.writeString(documento);
-        dest.writeString(barrioUsuario);
-        dest.writeString(direccionUsuario);
         dest.writeString(correo);
         dest.writeString(referencia);
         dest.writeString(direccionAfectacion);
@@ -152,14 +143,6 @@ public class VerPqrs implements Parcelable {
         return documento;
     }
 
-    public String getBarrioUsuario() {
-        return barrioUsuario;
-    }
-
-    public String getDireccionUsuario() {
-        return direccionUsuario;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -213,8 +196,6 @@ public class VerPqrs implements Parcelable {
                 "Apellido:" + apellido + "\n"+
                 "Tipo de Documento:" + tipoDoc + "\n"+
                 "Documento:" + documento + "\n"+
-                "Barrio:" + barrioUsuario + "\n"+
-                "Direccion del Usuario:" + direccionUsuario + "\n"+
                 "Correo:" + correo + "\n"+
                 "Referencia:" + referencia + "\n"+
                 "Direccion de la afectacion:" + direccionAfectacion + "\n"+

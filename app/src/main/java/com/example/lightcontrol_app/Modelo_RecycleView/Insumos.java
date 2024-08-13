@@ -6,14 +6,15 @@ public class Insumos {
     private int cantidad;
     private String estado;
     private String descripcion;
+    private int cantidadUtilizada;
 
-    // Constructor para inicializar las variables
-    public Insumos(int id, String nombreElemento, int cantidad, String estado, String descripcion) {
+    public Insumos(int id, String nombreElemento, int cantidad, String estado, String descripcion, int cantidadUtilizada) {
         this.id = id;
         this.nombreElemento = nombreElemento;
         this.cantidad = cantidad;
         this.estado = estado;
         this.descripcion = descripcion;
+        this.cantidadUtilizada = cantidadUtilizada;
     }
 
     public int getId() {
@@ -34,6 +35,14 @@ public class Insumos {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public int getCantidadUtilizada() {
+        return cantidadUtilizada;
+    }
+
+    public void setCantidadUtilizada(int cantidadUtilizada) {
+        this.cantidadUtilizada = cantidadUtilizada;
     }
 
     public void setCantidad(int cantidad) {

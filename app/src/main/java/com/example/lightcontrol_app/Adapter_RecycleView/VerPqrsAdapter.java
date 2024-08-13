@@ -1,5 +1,6 @@
 package com.example.lightcontrol_app.Adapter_RecycleView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -24,6 +25,13 @@ public class VerPqrsAdapter extends RecyclerView.Adapter<VerPqrsAdapter.OrderVie
 
     public VerPqrsAdapter(List<VerPqrs> camposAMostrar) {
         this.camposAMostrar = camposAMostrar;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(List<VerPqrs> newData) {
+        this.camposAMostrar.clear();
+        this.camposAMostrar.addAll(newData);
+        notifyDataSetChanged();
     }
 
 

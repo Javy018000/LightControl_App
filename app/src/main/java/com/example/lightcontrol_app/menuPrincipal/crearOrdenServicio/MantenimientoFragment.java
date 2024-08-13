@@ -1,5 +1,6 @@
 package com.example.lightcontrol_app.menuPrincipal.crearOrdenServicio;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,11 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.lightcontrol_app.R;
+import com.example.lightcontrol_app.controllerDB.BaseDeDatosAux;
 
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,9 +39,6 @@ public class MantenimientoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ExecutorService executorService;
-    private Handler mainHandler;
-
     private Spinner tipoElementoSpinner;
     private EditText codigoElementoEditText;
     private EditText elementoRelacionadoEditText;
@@ -75,8 +78,6 @@ public class MantenimientoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        executorService = Executors.newSingleThreadExecutor();
-        mainHandler = new Handler(Looper.getMainLooper());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -105,6 +106,27 @@ public class MantenimientoFragment extends Fragment {
         ordenPrioridadSpinner = view.findViewById(R.id.crearOrden_ordenPrioridad);
         tipoOrdenSpinner = view.findViewById(R.id.crearOrden_tipoOrden);
         fechaRealizarEditText = view.findViewById(R.id.crearOrden_fechaRealizar);
+        fechaRealizarEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                if (getActivity() != null){
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    String selectedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
+                                    fechaRealizarEditText.setText(selectedDate);
+                                }
+                            }, year, month, day);
+                    datePickerDialog.show();
+                }
+
+            }
+        });
         tipoSolucionSpinner = view.findViewById(R.id.crearOrden_tipoSolucion);
         cuadrillaSpinner = view.findViewById(R.id.crearOrden_cuadrilla);
 
@@ -117,15 +139,111 @@ public class MantenimientoFragment extends Fragment {
         elementoRelacionadoEditText.setEnabled(false);
         problemaRelacionadoEditText.setEnabled(false);
 
+        int finalIdPqr = idPqr;
         generarNuevaOrdenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (areFieldsValid()) {
+                    try {
+                        insertarDatosOrdenServicio();
+                        actualizarEstadoPQR(finalIdPqr);
+                        Toast.makeText(getActivity(), "Se subió la orden de servicio correctamente", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(getActivity(), "Ha ocurrido un error inesperado", Toast.LENGTH_SHORT).show();
+                    }
 
+                    if (getActivity() != null){
+                        getActivity().finish();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            private boolean areFieldsValid() {
+                // Verificar EditTexts
+                if (codigoElementoEditText.getText().toString().trim().isEmpty() ||
+                        prioridadRutaEditText.getText().toString().trim().isEmpty() ||
+                        fechaRealizarEditText.getText().toString().trim().isEmpty()) {
+                    return false;
+                }
+
+                // Verificar Spinners
+                if (tipoElementoSpinner.getSelectedItemPosition() == 0 ||
+                        problemaValidoSpinner.getSelectedItemPosition() == 0 ||
+                        ordenPrioridadSpinner.getSelectedItemPosition() == 0 ||
+                        tipoOrdenSpinner.getSelectedItemPosition() == 0 ||
+                        tipoSolucionSpinner.getSelectedItemPosition() == 0 ||
+                        cuadrillaSpinner.getSelectedItemPosition() == 0) {
+                    return false;
+                }
+
+                return true;
+            }
+        });
+        atrasButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null){
+                    getActivity().finish();
+                }
             }
         });
 
         //crearOrdenDeServicio(idPqr, fechaRealizarEditText.getText(), );
 
         return view;
+    }
+
+    private void actualizarEstadoPQR(int idPqr){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(()->{
+            try {
+                BaseDeDatosAux baseDeDatosAux = new BaseDeDatosAux();
+                baseDeDatosAux.actualizarDatos("UPDATE pqrs SET Estado = ? WHERE Idpqrs = ?", 2, idPqr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void insertarDatosOrdenServicio() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(()->{
+            try {
+                BaseDeDatosAux baseDeDatosAux = new BaseDeDatosAux();
+                baseDeDatosAux.actualizarDatos("INSERT INTO ordenes_de_servicio (" +
+                                "Tipo_de_elemento, " +
+                                "codigo_de_elemento, " +
+                                "elemento_relacionado, " +
+                                "problema_relacionado, " +
+                                "problema_validado, " +
+                                "prioridad_de_ruta, " +
+                                "fecha_a_realizar, " +
+                                "cuadrilla, " +
+                                "tipo_de_orden, " +
+                                "tipo_de_Solucion, " +
+                                "clase_de_orden, " +
+                                "Orden_prioridad, " +
+                                "IdEstado" +
+                                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        tipoElementoSpinner.getSelectedItem().toString(),
+                        codigoElementoEditText.getText().toString(),
+                        elementoRelacionadoEditText.getText().toString(),
+                        problemaRelacionadoEditText.getText().toString(),
+                        problemaValidoSpinner.getSelectedItem().toString(),
+                        prioridadRutaEditText.getText().toString(),
+                        fechaRealizarEditText.getText().toString(),
+                        cuadrillaSpinner.getSelectedItem().toString(),
+                        tipoOrdenSpinner.getSelectedItem().toString(),
+                        tipoSolucionSpinner.getSelectedItem().toString(),
+                        "Mantenimiento",
+                        ordenPrioridadSpinner.getSelectedItem().toString(),
+                        2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

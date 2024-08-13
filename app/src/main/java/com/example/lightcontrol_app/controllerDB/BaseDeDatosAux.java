@@ -1,10 +1,6 @@
 package com.example.lightcontrol_app.controllerDB;
 
-import com.example.lightcontrol_app.Modelo_RecycleView.Insumos;
-import com.example.lightcontrol_app.Modelo_RecycleView.MapaInfraestructura;
-import com.example.lightcontrol_app.Modelo_RecycleView.OrdenServicioVerInfo;
-import com.example.lightcontrol_app.Modelo_RecycleView.OrdenServicioVistaPrevia;
-import com.example.lightcontrol_app.Modelo_RecycleView.VerPqrs;
+import com.example.lightcontrol_app.Modelo_RecycleView.CampoInfo;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -31,191 +27,53 @@ public class BaseDeDatosAux {
         }
         return connection;
     }
-
-    public List<OrdenServicioVistaPrevia> obtenerTodasLasOrdenes() {
-        List<OrdenServicioVistaPrevia> orderList = new ArrayList<>();
+    public List<CampoInfo> obtenerInfoOrden(int id) {
+        List<CampoInfo> infoOrden = new ArrayList<>();
         Connection connection = connect();
         if (connection != null) {
             try {
-                String query = "SELECT problema_relacionado, id_orden FROM ordenes_de_servicio WHERE IdEstado = 2"; // Reemplaza 'OrdersTable' con tu tabla
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    String problema = resultSet.getString("problema_relacionado");
-                    int idOrden = resultSet.getInt("id_orden");
-                    OrdenServicioVistaPrevia order = new OrdenServicioVistaPrevia(idOrden, problema);
-                    orderList.add(order);
-                }
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return orderList;
-    }
-    public List<OrdenServicioVerInfo> obtenerInfoOrden(int id){
-        List<OrdenServicioVerInfo> infoOrden = new ArrayList<>();
-        Connection connection = connect();
-        if (connection != null)
-        {
-            try {
-                System.out.println("AAAAAA" + id);
                 String query = "SELECT * FROM ordenes_de_servicio WHERE id_orden = " + id;
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
 
-                while(resultSet.next()){
-                    int id_orden = resultSet.getInt("id_orden");
-                    String tipo_de_elemento = resultSet.getString("Tipo_de_elemento");
-                    String codigo_de_elemento = resultSet.getString("codigo_de_elemento");
-                    String elemento_relacionado = resultSet.getString("elemento_relacionado");
-                    String codigo_orden = resultSet.getString("codigo_orden");
-                    String description = resultSet.getString("problema_relacionado");
-                    String problema_validado = resultSet.getString("problema_validado");
-                    int prioridad_de_ruta = resultSet.getInt("prioridad_de_ruta");
-                    Date fecha_a_realizar = resultSet.getDate("fecha_a_realizar");
-                    String cuadrilla = resultSet.getString("cuadrilla");
-                    String tipo_de_orden = resultSet.getString("tipo_de_orden");
-                    String tipo_de_Solucion = resultSet.getString("tipo_de_Solucion");
-                    String clase_de_orden = resultSet.getString("clase_de_orden");
-                    String obra_relacionada = resultSet.getString("obra_relacionada");
-                    String orden_prioridad = resultSet.getString("Orden_prioridad");
-                    int idEstado = resultSet.getInt("IdEstado");
-
-                    OrdenServicioVerInfo info = new OrdenServicioVerInfo(id_orden, tipo_de_elemento, codigo_de_elemento,
-                            elemento_relacionado, codigo_orden, description, problema_validado, prioridad_de_ruta,
-                            fecha_a_realizar, cuadrilla, tipo_de_orden, tipo_de_Solucion, clase_de_orden, obra_relacionada,
-                            orden_prioridad, idEstado);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
-                    infoOrden.add(info);
+                if (resultSet.next()) {
+                    infoOrden.add(new CampoInfo("ID", String.valueOf(resultSet.getInt("id_orden"))));
+                    infoOrden.add(new CampoInfo("Tipo de Elemento", resultSet.getString("Tipo_de_elemento")));
+                    infoOrden.add(new CampoInfo("Código de Elemento", resultSet.getString("codigo_de_elemento")));
+                    infoOrden.add(new CampoInfo("Pqrs Relacionada", resultSet.getString("elemento_relacionado")));
+                    infoOrden.add(new CampoInfo("Código de Orden", resultSet.getString("codigo_orden")));
+                    infoOrden.add(new CampoInfo("Problema Relacionado", resultSet.getString("problema_relacionado")));
+                    infoOrden.add(new CampoInfo("Problema Validado", resultSet.getString("problema_validado")));
+                    infoOrden.add(new CampoInfo("Orden Prioridad", resultSet.getString("Orden_prioridad")));
+                    infoOrden.add(new CampoInfo("Prioridad de Ruta", String.valueOf(resultSet.getInt("prioridad_de_ruta"))));
+                    infoOrden.add(new CampoInfo("Fecha a Realizar", resultSet.getDate("fecha_a_realizar").toString()));
+                    infoOrden.add(new CampoInfo("Cuadrilla", resultSet.getString("cuadrilla")));
+                    infoOrden.add(new CampoInfo("Tipo de Orden", resultSet.getString("tipo_de_orden")));
+                    infoOrden.add(new CampoInfo("Tipo de Solución", resultSet.getString("tipo_de_Solucion")));
+                    infoOrden.add(new CampoInfo("Clase de Orden", resultSet.getString("clase_de_orden")));
+                    infoOrden.add(new CampoInfo("Obra Relacionada", resultSet.getString("obra_relacionada")));
+                    infoOrden.add(new CampoInfo("Estado", verificarEstado(resultSet.getInt("IdEstado"))));
                 }
 
                 resultSet.close();
                 statement.close();
                 connection.close();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return infoOrden;
     }
-    public List<MapaInfraestructura> obtenerLugarMapa(String codigoDeElemento){
-        List<MapaInfraestructura> listaLugares = new ArrayList<>();
-        Connection connection = connect();
-        if (connection != null) {
-            String query;
-            System.out.println("Codigo de elemento "+codigoDeElemento);
-            if (!(codigoDeElemento.equals("-1"))){
-                query = "SELECT latitud, longitud, barrio, direccion " +
-                        "FROM infraestructura " +
-                        "WHERE codigo = "+"'"+codigoDeElemento+"'";
-            }
-            else{
-                query = "SELECT i.latitud, i.longitud, i.barrio, i.direccion " +
-                        "FROM infraestructura i " +
-                        "JOIN ordenes_de_servicio o ON i.codigo = o.codigo_de_elemento ";
-            }
-            try {
-
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()) {
-                    String barrio = resultSet.getString("barrio");
-                    String direccion = resultSet.getString("direccion");
-                    double latitud = resultSet.getDouble("latitud");
-                    double longitud = resultSet.getDouble("longitud");
-                    MapaInfraestructura lugar = new MapaInfraestructura(latitud, longitud, barrio, direccion);
-                    listaLugares.add(lugar);
-                }
-                resultSet.close();
-                statement.close();
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return listaLugares;
-    }
-
-    public List<Insumos> cerrarOrden(){
-        List<Insumos> listaInventario = new ArrayList<>();
-        Connection connection = connect();
-        if (connection != null){
-            try {
-                String query = "SELECT * FROM Inventario";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next()){
-                    int id = resultSet.getInt("ID");
-                    String nombreElemento = resultSet.getString("nombre_elemento");
-                    int cantidad = resultSet.getInt("cantidad");
-                    String estado = resultSet.getString("estado");
-                    String descripcion = resultSet.getString("descripcion");
-
-                    Insumos insumos = new Insumos(id, nombreElemento, cantidad, estado, descripcion);
-
-                    listaInventario.add(insumos);
-                }
-                resultSet.close();
-                statement.close();
-                connection.close();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return listaInventario;
-    }
-    public void actualizarCantidadInsumos(int id, int nuevaCantidad) {
-        // Obtener la conexión a la base de datos
-        Connection connection = connect();
-        if (connection != null) {
-            try {
-                // Crear la consulta de actualización
-                String query = "UPDATE Inventario SET cantidad = ? WHERE id = ?";
-
-                // Crear un objeto PreparedStatement
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-
-                // Establecer los valores para los parámetros
-                preparedStatement.setInt(1, nuevaCantidad);
-                preparedStatement.setInt(2, id);
-
-                // Ejecutar la actualización
-                int rowsAffected = preparedStatement.executeUpdate();
-
-                // Verificar cuántas filas fueron afectadas
-                System.out.println("Filas afectadas: " + rowsAffected);
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                // Cerrar la conexión
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+    private String verificarEstado(int idEstado) {
+        switch (idEstado){
+            case 1: return "Sin asignar";
+            case 2: return "En proceso";
+            case 3: return "Cerrada";
+            default: return "Error";
         }
     }
+
+
     public void actualizarEstadoOrdenServicio(int id, int nuevoEstado) {
         // Obtener la conexión a la base de datos
         Connection connection = connect();
@@ -249,50 +107,6 @@ public class BaseDeDatosAux {
             }
         }
     }
-    public List<VerPqrs> obtenerPqrs(){
-        List<VerPqrs> listPqrs = new ArrayList<>();
-        Connection connection = connect();
-        if (connection != null){
-            try {
-                String query = "SELECT * FROM pqrs WHERE Estado = 1";
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-
-                while (resultSet.next()){
-                    int idpqrs = resultSet.getInt("idpqrs");
-                    Date fechaRegistro = resultSet.getDate("FechaRegistro");
-                    String tipopqrs = resultSet.getString("Tipopqrs");
-                    String canal = resultSet.getString("Canal");
-                    String nombre = resultSet.getString("Nombre");
-                    String apellido = resultSet.getString("Apellido");
-                    String tipoDoc = resultSet.getString("TipoDoc");
-                    String documento = resultSet.getString("Documento");
-                    String barrioUsuario = resultSet.getString("BarrioUsuario");
-                    String direccionUsuario = resultSet.getString("DireccionUsuario");
-                    String correo = resultSet.getString("Correo");
-                    String referencia = resultSet.getString("Referencia");
-                    String direccionAfectacion = resultSet.getString("DireccionAfectacion");
-                    String barrioAfectacion = resultSet.getString("BarrioAfectacion");
-                    String tipoAlumbrado = resultSet.getString("TipoAlumbrado");
-                    String descripcionAfectacion = resultSet.getString("DescripcionAfectacion");
-                    int estado = resultSet.getInt("Estado");
-                    String telefono = resultSet.getString("Telefono");
-
-                    listPqrs.add(new VerPqrs(idpqrs, fechaRegistro, tipopqrs, canal, nombre, apellido, tipoDoc, documento, barrioUsuario,
-                            direccionUsuario, correo, referencia, direccionAfectacion, barrioAfectacion, tipoAlumbrado,
-                            descripcionAfectacion, estado, telefono));
-
-                }
-                resultSet.close();
-                statement.close();
-                connection.close();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return listPqrs;
-    }
     public byte[] obtenerFoto(String campo, String tabla, int id){
         byte[] imagen = null;
         Connection connection = connect();
@@ -314,4 +128,110 @@ public class BaseDeDatosAux {
         }
         return imagen;
     }
+
+    //ordenando codigo
+    public <T> List<T> obtenerDatos(String query, RowMapper<T> mapper) {
+        List<T> dataList = new ArrayList<>();
+        Connection connection = connect();
+        if (connection != null) {
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(query)) {
+
+                while (resultSet.next()) {
+                    try {
+                        T data = mapper.mapRow(resultSet);
+                        dataList.add(data);
+                    } catch (SQLException e) {
+                        // Log the error, but continue processing
+                        System.err.println("Error mapping row: " + e.getMessage());
+                        // You might want to add a null or a partially filled object here
+                        // dataList.add(null);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("Error executing query: " + e.getMessage());
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing connection: " + e.getMessage());
+                }
+            }
+        }
+        return dataList;
+    }
+
+    public void actualizarCantidadInsumos(int id, int nuevaCantidad) {
+        // Obtener la conexión a la base de datos
+        Connection connection = connect();
+        if (connection != null) {
+            try {
+                // Crear la consulta de actualización
+                String query = "UPDATE Inventario SET cantidad = ? WHERE id = ?";
+
+                // Crear un objeto PreparedStatement
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                // Establecer los valores para los parámetros
+                preparedStatement.setInt(1, nuevaCantidad);
+                preparedStatement.setInt(2, id);
+
+                // Ejecutar la actualización
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                // Verificar cuántas filas fueron afectadas
+                System.out.println("Filas afectadas: " + rowsAffected);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                // Cerrar la conexión
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void actualizarDatos(String query, Object... params) {
+        // Obtener la conexión a la base de datos
+        Connection connection = connect();
+        if (connection != null) {
+            try {
+                // Crear un objeto PreparedStatement
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                // Establecer los valores para los parámetros
+                for (int i = 0; i < params.length; i++) {
+                    preparedStatement.setObject(i + 1, params[i]);
+                }
+
+                // Ejecutar la actualización
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                // Verificar cuántas filas fueron afectadas
+                System.out.println("Filas afectadas: " + rowsAffected);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                // Cerrar la conexión
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+    // Ejemplo de RowMapper
+    public interface RowMapper<T> {
+        T mapRow(ResultSet resultSet) throws SQLException;
+    }
+
 }

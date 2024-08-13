@@ -28,4 +28,13 @@ public class MapaInfraestructura {
     public String getDireccion() {
         return direccion;
     }
+
+    public String toStringgg() {
+        return "MapaInfraestructura{" +
+                "latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", barrio='" + barrio + '\'' +
+                ", direccion='" + direccion + '\'' +
+                '}';
+    }
 }

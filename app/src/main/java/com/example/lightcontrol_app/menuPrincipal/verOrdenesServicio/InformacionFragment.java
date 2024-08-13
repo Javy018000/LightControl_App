@@ -17,7 +17,7 @@ import android.widget.Button;
 
 import com.example.lightcontrol_app.Adapter_RecycleView.OrdenServicioVerInfoAdapter;
 import com.example.lightcontrol_app.controllerDB.BaseDeDatosAux;
-import com.example.lightcontrol_app.Modelo_RecycleView.OrdenServicioVerInfo;
+import com.example.lightcontrol_app.Modelo_RecycleView.CampoInfo;
 import com.example.lightcontrol_app.R;
 
 import java.util.List;
@@ -103,7 +103,7 @@ public class InformacionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onButtonToInsumosClicked();
+                    mListener.onButtonToTrabajosClicked(buscarElemento("Pqrs Relacionada"));
                 }
             }
         });
@@ -114,7 +114,7 @@ public class InformacionFragment extends Fragment {
                 int size = adapter.getCamposAMostrar().size();
 
                 Intent intent = new Intent(getContext(), MapaPuntosSimultaneos.class);
-                int codigoElemento = Integer.parseInt(adapter.getCamposAMostrar().get(size-1).getCodigo_de_elemento());
+                int codigoElemento = Integer.parseInt(buscarElemento("Código de Elemento"));
                 intent.putExtra("MapaIndividual", codigoElemento);
                 startActivity(intent);
             }
@@ -123,10 +123,20 @@ public class InformacionFragment extends Fragment {
         return view;
     }
 
+    private String buscarElemento(String titulo) {
+        for (CampoInfo campo :
+                adapter.getCamposAMostrar()) {
+            if (campo.getTitulo().equalsIgnoreCase(titulo)) {
+                return campo.getValor();
+            }
+        }
+        return "null";
+    }
+
     private void cargarCampos() {
         executorService.execute(() -> {
             BaseDeDatosAux auxBaseDeDatos = new BaseDeDatosAux();
-            List<OrdenServicioVerInfo> resultado = auxBaseDeDatos.obtenerInfoOrden(idInformacion);
+            List<CampoInfo> resultado = auxBaseDeDatos.obtenerInfoOrden(idInformacion);
 
             mainHandler.post(() -> {
                 if (isAdded() && getActivity() != null) {
@@ -157,6 +167,6 @@ public class InformacionFragment extends Fragment {
         mListener = null;
     }
     public interface OnFragmentInteractionListener {
-        void onButtonToInsumosClicked();
+        void onButtonToTrabajosClicked(String pqrRelacionada);
     }
 }

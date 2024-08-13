@@ -3,6 +3,7 @@ package com.example.lightcontrol_app.menuPrincipal.verOrdenesServicio;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -97,7 +98,7 @@ public class InsumosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onButtonToInfoClicked();
+                    mListener.onButtonToTrabajosVolverClicked();
                 }
             }
         });
@@ -118,7 +119,14 @@ public class InsumosFragment extends Fragment {
     private void cargarCampos() {
         executorService.execute(() -> {
             BaseDeDatosAux baseDeDatosAux = new BaseDeDatosAux();
-            List<Insumos> resultadoInsumos = baseDeDatosAux.cerrarOrden();
+            List<Insumos> resultadoInsumos = baseDeDatosAux.obtenerDatos("SELECT * FROM Inventario", resultSet -> new Insumos(
+                    resultSet.getInt("ID"),
+                    resultSet.getString("nombre_elemento"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getString("estado"),
+                    resultSet.getString("descripcion"),
+                    0
+            ));
 
             mainHandler.post(() -> {
                 if (isAdded() && getActivity() != null) {
@@ -130,7 +138,7 @@ public class InsumosFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -146,7 +154,7 @@ public class InsumosFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void onButtonToInfoClicked();
+        void onButtonToTrabajosVolverClicked();
         void onButtonConfirmarClicked(List<Insumos> insumosModificados);
     }
 }

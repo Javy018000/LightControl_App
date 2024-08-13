@@ -2,6 +2,7 @@
     <string name="app_name">LightControl_App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="observaciones">Observaciones</string>
     <string-array name="options_array">
         <item>Mantenimiento preventivo (limpieza)</item>
         <item>Cambio de luminaria por luminaria provisional</item>
@@ -16,5 +17,39 @@
         <item>Poda en infraestructura de alumbrado público</item>
         <item>Reubicación de luminaria</item>
         <item>Plomado de poste</item>
+    </string-array>
+    <string-array name="mantenimiento_tipo_de_elemento">
+        <item>Seleccione una opción</item>
+        <item>Luminaria Led</item>
+    </string-array>
+    <string-array name="mantenimiento_problema_validado">
+        <item>Seleccione una opción</item>
+        <item>Si</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="mantenimiento_orden_prioridad">
+        <item>Seleccione una opción</item>
+        <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
+    </string-array>
+    <string-array name="mantenimiento_tipo_de_orden">
+        <item>Seleccione una opción</item>
+        <item>Correctiva</item>
+        <item>Preventiva</item>
+        <item>Inspección</item>
+        <item>Repotenciación</item>
+    </string-array>
+    <string-array name="mantenimiento_tipo_de_solucion">
+        <item>Seleccione una opción</item>
+        <item>Sin recomendación</item>
+        <item>Regular</item>
+        <item>Intercambio</item>
+    </string-array>
+    <string-array name="mantenimiento_cuadrilla">
+        <item>Seleccione una opción</item>
+        <item>Cuadrilla1</item>
+        <item>Cuadrilla2</item>
     </string-array>
 </resources>
